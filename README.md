@@ -34,6 +34,9 @@ CREATE TABLE AnnualReviews (
     FOREIGN KEY (EmpID) REFERENCES Employee(ID)
 );
 ```
+#### ERD
+![Untitled (5)](https://github.com/user-attachments/assets/f780bbe9-4eab-4892-8e94-4b850274ce8f)
+
 
 - **Employee** table contains:
   - `FirstName`, `LastName`: Employee names.
