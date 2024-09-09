@@ -1,4 +1,4 @@
-## Case Study: Employee and Annual Reviews Data Analysis
+## SQL Case Study: Employee and Annual Reviews Data Analysis
 
 This case study revolves around managing employee records and annual reviews for a company. Given the provided data and structure, the goal is to derive insights through SQL queries.
 
