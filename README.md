@@ -130,18 +130,14 @@ ORDER BY E.HireDate;
 **Query:**
 
 ```sql
-SELECT DATEDIFF(
-    MAX(HireDate), 
-    MIN(HireDate)
-) AS TenureDifference
+SELECT 
+    (MAX(HireDate) - MIN(HireDate)) AS TenureDifference
 FROM Employee
 WHERE TerminationDate IS NULL;
 ```
 
 **Explanation:**
 - The query finds the most recent and earliest hire dates among current employees using `MAX(HireDate)` and `MIN(HireDate)`.
-- `DATEDIFF` calculates the difference in days between these two dates, representing the tenure gap.
-
 **Purpose:**
 - This insight helps understand the range of employee experience levels among current staff.
 
