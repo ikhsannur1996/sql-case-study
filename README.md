@@ -153,9 +153,18 @@ WITH AllDates AS (
     UNION
     SELECT TerminationDate AS Date, 'Terminate' AS Event FROM Employee
     WHERE TerminationDate IS NOT NULL
+),
+OrderedDates AS (
+    SELECT 
+        Date,
+        Event,
+        LEAD(Date) OVER (ORDER BY Date) AS NextDate
+    FROM AllDates
 )
-SELECT MAX(DATEDIFF(LEAD(Date) OVER (ORDER BY Date), Date)) AS LongestPeriodWithoutHiringFiring
-FROM AllDates;
+SELECT 
+    MAX((NextDate - Date)::INTEGER) AS LongestPeriodWithoutHiringFiring
+FROM OrderedDates
+WHERE NextDate IS NOT NULL;
 ```
 
 **Explanation:**
