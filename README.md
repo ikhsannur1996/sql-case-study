@@ -31,10 +31,21 @@ CREATE TABLE Employee (
 CREATE TABLE AnnualReviews (
     ID INT PRIMARY KEY,
     EmpID INT,
-    ReviewDate DATE,
-    FOREIGN KEY (EmpID) REFERENCES Employee(ID)
+    ReviewDate DATE
 );
 ```
+
+#### Add the foreign key constraint using ALTER TABLE (Optional)
+```
+ALTER TABLE AnnualReviews
+ADD CONSTRAINT fk_employee
+FOREIGN KEY (EmpID) REFERENCES Employee(ID);
+```
+-- Note:
+-- This command will enforce referential integrity by ensuring that each EmpID in the AnnualReviews table must exist in the Employee table.
+-- If there are any values in the AnnualReviews table that do not have corresponding entries in the Employee table, 
+-- the command will fail, and you must resolve these inconsistencies before successfully adding the constraint.
+
 #### ERD
 ![Untitled (5)](https://github.com/user-attachments/assets/f780bbe9-4eab-4892-8e94-4b850274ce8f)
 
