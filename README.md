@@ -19,13 +19,14 @@ The tables are created as follows:
 
 ```sql
 CREATE TABLE Employee (
-    FirstName VARCHAR(50),
-    LastName VARCHAR(50),
     ID INT PRIMARY KEY,
+    FirstName VARCHAR(100),
+    LastName VARCHAR(100),
     HireDate DATE,
     TerminationDate DATE,
-    Salary INT
+    Salary NUMERIC
 );
+
 
 CREATE TABLE AnnualReviews (
     ID INT PRIMARY KEY,
