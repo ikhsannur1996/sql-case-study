@@ -191,34 +191,31 @@ WHERE NextDate IS NOT NULL;
 **Query:**
 
 ```sql
-WITH EmployeeTenure AS (
-    SELECT 
-        E.ID, 
-        E.FirstName, 
-        E.LastName, 
-        E.HireDate, 
-        COALESCE(E.TerminationDate, CURRENT_DATE) AS EndDate
-    FROM Employee E
-),
-MaxEmployees AS (
-    SELECT 
-        E1.ID, 
-        COUNT(E2.ID) AS EmployeesAtThatTime, 
-        E1.HireDate
-    FROM EmployeeTenure E1
-    JOIN EmployeeTenure E2
-    ON E1.HireDate BETWEEN E2.HireDate AND E2.EndDate
-    GROUP BY E1.ID, E1.HireDate
-)
-SELECT 
-    E.ID, 
-    E.FirstName, 
-    E.LastName, 
-    MAX(M.EmployeesAtThatTime) AS MaxEmployees, 
-    MIN(M.HireDate) AS FirstDateMaxReached
-FROM EmployeeTenure E
-JOIN MaxEmployees M ON E.ID = M.ID
-GROUP BY E.ID, E.FirstName, E.LastName;
+SELECT
+    FirstName,
+    LastName,
+    HireDate,
+    Periode_Date,
+    TerminationDate,
+    Total_Employ_Active
+FROM Employee
+CROSS JOIN (
+    SELECT DISTINCT
+        hd AS Periode_Date,
+        SUM(sk) OVER (ORDER BY hd) AS Total_Employ_Active
+    FROM (
+        SELECT DISTINCT
+            hd,
+            LEAD(hd) OVER (ORDER BY hd) AS dwan,
+            sk
+        FROM (
+            SELECT
+                HireDate AS hd,
+                1 AS sk
+            FROM Employee
+        ) AS subquery1
+    ) AS subquery2
+) AS subquery3;
 ```
 
 **Explanation:**
