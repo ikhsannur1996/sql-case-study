@@ -140,7 +140,7 @@ ORDER BY E.HireDate;
 **Query:**
 
 ```sql
-SELECT 
+SELECT MIN(HireDate) AS MIN_HireDate, MAX(HireDate) AS MAX_HireDate,
     (MAX(HireDate) - MIN(HireDate)) AS TenureDifference
 FROM Employee
 WHERE TerminationDate IS NULL;
